@@ -1,0 +1,21 @@
+[Unit]
+Description=Psotnic IRC channel-protection bot
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=ghcr.io/ploos-as/psotnic:0.1.0
+ContainerName=psotnic
+Environment=PSOTNIC_CONFIG=/data/psotnic.conf
+Volume=%h/.local/share/psotnic:/data:Z
+DropCapability=all
+NoNewPrivileges=true
+
+[Service]
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=300
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target
