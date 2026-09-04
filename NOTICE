@@ -1,0 +1,14 @@
+Psotnic container packaging
+Copyright (c) 2026 Ploos AS
+
+This repository contains packaging and deployment material maintained by Ploos AS.
+Packaging code is licensed under the MIT License unless otherwise noted.
+
+The container builds upstream Psotnic from:
+  https://github.com/psotnic/psotnic
+Pinned upstream commit:
+  b598a8dc25686e2785fb0f9970103cb6a39cdaa6
+Upstream version reported in source:
+  0.2.14
+
+Upstream Psotnic is licensed under the GNU General Public License, version 2 or later, as stated in its source headers. The upstream source and license remain governed by their original copyright holders and license terms.
