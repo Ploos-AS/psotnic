@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+if pgrep -x psotnic >/dev/null 2>&1; then
+  exit 0
+fi
+
+# Safe first-run idle mode is healthy when no config exists yet.
+config=${PSOTNIC_CONFIG:-/data/psotnic.conf}
+if [ ! -f "$config" ] && pgrep -x tail >/dev/null 2>&1; then
+  exit 0
+fi
+
+exit 1
