@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+config=${PSOTNIC_CONFIG:-/data/psotnic.conf}
+
+if [ "$#" -gt 0 ]; then
+  exec /usr/local/bin/psotnic "$@"
+fi
+
+if [ -f "$config" ]; then
+  exec /usr/local/bin/psotnic "$config"
+fi
+
+cat >&2 <<EOF
+Psotnic configuration not found: $config
+
+Create one interactively with:
+  docker run --rm -it -v psotnic-data:/data ghcr.io/ploos-as/psotnic:0.1.0 -n
+
+Then place/use the generated configuration as $config.
+The container will remain idle until configuration is supplied.
+EOF
+
+exec tail -f /dev/null
