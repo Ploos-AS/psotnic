@@ -107,3 +107,39 @@ jobs:
             ghcr.io/ploos-as/psotnic:latest
           provenance: mode=max
           sbom: true
+
+  finalize-release:
+    if: startsWith(github.ref, 'refs/heads/release/v')
+    needs: publish-release-candidate
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Create tag and GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=$(cat VERSION)
+          tag="v${version}"
+          notes="docs/releases/${tag}.md"
+          test "${GITHUB_REF_NAME}" = "release/${tag}"
+          test -f "$notes"
+
+          if git ls-remote --exit-code --tags origin "refs/tags/${tag}" >/dev/null 2>&1; then
+            remote_sha=$(git ls-remote --tags origin "refs/tags/${tag}" | awk '{print $1}')
+            test "$remote_sha" = "$GITHUB_SHA"
+          else
+            git tag "$tag" "$GITHUB_SHA"
+            git push origin "refs/tags/${tag}"
+          fi
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release ${tag} already exists"
+          else
+            gh release create "$tag" --verify-tag --title "$tag" --notes-file "$notes"
+          fi
