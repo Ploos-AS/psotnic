@@ -1,6 +1,6 @@
 services:
   psotnic:
-    image: ghcr.io/ploos-as/psotnic:0.1.0
+    image: ghcr.io/ploos-as/psotnic:0.1.1
     container_name: psotnic
     user: "1000:1000"
     environment:
