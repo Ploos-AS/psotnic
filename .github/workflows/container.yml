@@ -31,6 +31,8 @@ jobs:
           load: true
           tags: psotnic:test
           platforms: linux/amd64
+      - name: Image contract qualification
+        run: IMAGE=psotnic:test sh tests/image-contract.sh
       - name: Smoke test
         run: IMAGE=psotnic:test sh scripts/smoke-test.sh
       - name: Runtime qualification
