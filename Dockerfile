@@ -15,7 +15,7 @@ RUN git clone https://github.com/psotnic/psotnic.git . \
 FROM alpine:${ALPINE_VERSION}
 ARG PSOTNIC_COMMIT=b598a8dc25686e2785fb0f9970103cb6a39cdaa6
 ARG PSOTNIC_VERSION=0.2.14
-ARG CONTAINER_VERSION=0.1.0
+ARG CONTAINER_VERSION=0.1.1
 RUN apk add --no-cache \
     ca-certificates libstdc++ openssl procps tini \
     && addgroup -g 1000 -S psotnic \
