@@ -12,6 +12,8 @@ test -f LICENSE
 test -f docs/releases/v0.1.0.md
 test -f docs/M0_2_RUNTIME_QUALIFICATION.md
 test -f docs/M0_3_SUPPLY_CHAIN.md
+test -f docs/M0_4_DEPLOYMENT_HARDENING.md
+test -f tests/deployment-hardening.sh
 
 grep -q '^ARG ALPINE_VERSION=3\.22\.5$' Dockerfile
 grep -q 'b598a8dc25686e2785fb0f9970103cb6a39cdaa6' Dockerfile
@@ -29,4 +31,5 @@ if grep -E '^[[:space:]]*-[[:space:]]+uses:' .github/workflows/container.yml \
   exit 1
 fi
 
+sh tests/deployment-hardening.sh
 docker compose config --quiet
