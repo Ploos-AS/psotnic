@@ -6,6 +6,7 @@ Wants=network-online.target
 [Container]
 Image=ghcr.io/ploos-as/psotnic:0.1.0
 ContainerName=psotnic
+User=1000:1000
 Environment=PSOTNIC_CONFIG=/data/psotnic.conf
 Volume=%h/.local/share/psotnic:/data:Z
 DropCapability=all
