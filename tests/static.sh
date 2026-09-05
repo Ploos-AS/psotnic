@@ -14,8 +14,10 @@ test -f docs/M0_2_RUNTIME_QUALIFICATION.md
 test -f docs/M0_3_SUPPLY_CHAIN.md
 test -f docs/M0_4_DEPLOYMENT_HARDENING.md
 test -f docs/M0_5_PUBLISHED_ARTIFACT_VERIFICATION.md
+test -f docs/M0_6_IMAGE_CONTRACT.md
 test -f tests/deployment-hardening.sh
 test -f tests/published-artifact.sh
+test -f tests/image-contract.sh
 
 grep -q '^ARG ALPINE_VERSION=3\.22\.5$' Dockerfile
 grep -q 'b598a8dc25686e2785fb0f9970103cb6a39cdaa6' Dockerfile
@@ -27,6 +29,8 @@ grep -q 'provenance: mode=max' .github/workflows/container.yml
 grep -q 'sbom: true' .github/workflows/container.yml
 grep -q 'Published artifact verification' .github/workflows/container.yml
 grep -q 'steps.publish.outputs.digest' .github/workflows/container.yml
+grep -q 'Image contract qualification' .github/workflows/container.yml
+grep -q 'tests/image-contract.sh' .github/workflows/container.yml
 
 # All reusable third-party Actions must be pinned to immutable 40-hex commits.
 if grep -E '^[[:space:]]*-[[:space:]]+uses:' .github/workflows/container.yml \
