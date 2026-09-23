@@ -53,6 +53,7 @@ if grep -E '^[[:space:]]*-[[:space:]]+uses:' .github/workflows/container.yml \
 fi
 
 sh tests/deployment-hardening.sh
+sh tests/preflight.sh
 sh tests/backup-restore.sh
 docker compose config --quiet
 docker compose -f examples/multi-bot/compose.yaml config --quiet
