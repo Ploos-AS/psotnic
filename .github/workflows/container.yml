@@ -42,9 +42,21 @@ jobs:
       - name: Upgrade rollback qualification
         run: OLD_IMAGE=ghcr.io/ploos-as/psotnic:0.1.1 NEW_IMAGE=psotnic:test sh tests/upgrade-rollback.sh
 
+  podman:
+    needs: test
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - name: Install Podman
+        run: sudo apt-get update && sudo apt-get install -y podman
+      - name: Build image with Podman
+        run: podman build -t psotnic:test .
+      - name: Rootless Podman qualification
+        run: IMAGE=psotnic:test sh tests/podman.sh
+
   publish-edge-or-tag:
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
-    needs: test
+    needs: [test, podman]
     runs-on: ubuntu-24.04
     permissions:
       contents: read
