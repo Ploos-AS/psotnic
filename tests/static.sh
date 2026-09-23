@@ -22,6 +22,8 @@ test -f tests/deployment-hardening.sh
 test -f tests/published-artifact.sh
 test -f tests/image-contract.sh
 test -f tests/release-integrity.sh
+test -f examples/multi-bot/compose.yaml
+test -f examples/multi-bot/README.md
 
 grep -q '^ARG ALPINE_VERSION=3\.22\.5$' Dockerfile
 grep -q 'b598a8dc25686e2785fb0f9970103cb6a39cdaa6' Dockerfile
@@ -48,3 +50,14 @@ fi
 
 sh tests/deployment-hardening.sh
 docker compose config --quiet
+docker compose -f examples/multi-bot/compose.yaml config --quiet
+
+# Multi-bot example must keep each role isolated and hardened.
+for service in main slave leaf; do
+  docker compose -f examples/multi-bot/compose.yaml config --format json \
+    | jq -e --arg service "$service" '.services[$service].user == "1000:1000"' >/dev/null
+  docker compose -f examples/multi-bot/compose.yaml config --format json \
+    | jq -e --arg service "$service" '.services[$service].cap_drop == ["ALL"]' >/dev/null
+  docker compose -f examples/multi-bot/compose.yaml config --format json \
+    | jq -e --arg service "$service" '.services[$service].security_opt | index("no-new-privileges:true") != null' >/dev/null
+done
