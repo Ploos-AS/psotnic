@@ -37,6 +37,8 @@ jobs:
         run: IMAGE=psotnic:test sh scripts/smoke-test.sh
       - name: Runtime qualification
         run: IMAGE=psotnic:test sh tests/runtime.sh
+      - name: Persistence recreate qualification
+        run: IMAGE=psotnic:test sh tests/persistence-recreate.sh
 
   publish-edge-or-tag:
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
