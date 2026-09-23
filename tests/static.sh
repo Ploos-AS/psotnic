@@ -24,6 +24,10 @@ test -f tests/image-contract.sh
 test -f tests/release-integrity.sh
 test -f examples/multi-bot/compose.yaml
 test -f examples/multi-bot/README.md
+test -f scripts/backup-data.sh
+test -f scripts/restore-data.sh
+test -f tests/backup-restore.sh
+test -f docs/BACKUP_RESTORE.md
 
 grep -q '^ARG ALPINE_VERSION=3\.22\.5$' Dockerfile
 grep -q 'b598a8dc25686e2785fb0f9970103cb6a39cdaa6' Dockerfile
@@ -49,6 +53,7 @@ if grep -E '^[[:space:]]*-[[:space:]]+uses:' .github/workflows/container.yml \
 fi
 
 sh tests/deployment-hardening.sh
+sh tests/backup-restore.sh
 docker compose config --quiet
 docker compose -f examples/multi-bot/compose.yaml config --quiet
 
