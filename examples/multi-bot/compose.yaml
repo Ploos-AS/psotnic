@@ -1,0 +1,48 @@
+services:
+  main:
+    image: ghcr.io/ploos-as/psotnic:0.1.1
+    restart: unless-stopped
+    user: "1000:1000"
+    environment:
+      PSOTNIC_CONFIG: /data/psotnic.conf
+    volumes:
+      - main-data:/data
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+  slave:
+    image: ghcr.io/ploos-as/psotnic:0.1.1
+    restart: unless-stopped
+    user: "1000:1000"
+    environment:
+      PSOTNIC_CONFIG: /data/psotnic.conf
+    volumes:
+      - slave-data:/data
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    depends_on:
+      - main
+
+  leaf:
+    image: ghcr.io/ploos-as/psotnic:0.1.1
+    restart: unless-stopped
+    user: "1000:1000"
+    environment:
+      PSOTNIC_CONFIG: /data/psotnic.conf
+    volumes:
+      - leaf-data:/data
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    depends_on:
+      - main
+
+volumes:
+  main-data:
+  slave-data:
+  leaf-data:
