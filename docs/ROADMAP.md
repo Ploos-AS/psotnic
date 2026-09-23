@@ -16,7 +16,7 @@ This roadmap tracks the Ploos AS OCI packaging of upstream Psotnic. Upstream Pso
 - [x] Add documented multi-bot examples for main, slave, and leaf roles.
 - [x] Add backup and restore procedure for /data.
 - [x] Add upgrade and rollback documentation.
-- Add configuration validation/preflight where it can be done without changing upstream behavior.
+- [x] Add configuration validation/preflight where it can be done without changing upstream behavior.
 - [x] Improve observability documentation and operational troubleshooting.
 - [x] Add explicit resource-limit examples for small VPS and homelab deployments.
 - [x] Qualify rootless Podman deployment alongside Docker/Compose.
