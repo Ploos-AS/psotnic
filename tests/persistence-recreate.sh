@@ -17,6 +17,7 @@ docker volume create "$volume" >/dev/null
 # Seed persistent state independently of the image.
 docker run --rm -v "$volume:/data" alpine:3.22.5 sh -eu -c '
   printf "%s\n" "persistence-marker" > /data/persistence.marker
+  chown -R 1000:1000 /data
 '
 
 # First container generation.
