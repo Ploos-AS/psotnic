@@ -2,14 +2,14 @@
 
 Production-oriented OCI packaging of upstream [Psotnic](https://github.com/psotnic/psotnic), maintained by Ploos AS.
 
-This image pins upstream Psotnic **0.2.14** at commit `b598a8dc25686e2785fb0f9970103cb6a39cdaa6`. The Ploos AS container version is **0.1.1**.
+This image pins upstream Psotnic **0.2.14** at commit `b598a8dc25686e2785fb0f9970103cb6a39cdaa6`. The Ploos AS container version is **0.2.0**.
 
 Psotnic is an IRC channel-protection bot designed around coordinated botnets and channel administration. Use it only on IRC networks and channels where you are authorized to run it.
 
 ## Image
 
 ```sh
-docker pull ghcr.io/ploos-as/psotnic:0.1.1
+docker pull ghcr.io/ploos-as/psotnic:0.2.0
 ```
 
 Release images target `linux/amd64` and `linux/arm64`.
@@ -33,7 +33,7 @@ docker volume create psotnic-data
 
 docker run --rm -it \
   -v psotnic-data:/data \
-  ghcr.io/ploos-as/psotnic:0.1.1 -n
+  ghcr.io/ploos-as/psotnic:0.2.0 -n
 ```
 
 Ensure the resulting configuration is available as `/data/psotnic.conf`, or set `PSOTNIC_CONFIG` to another file under `/data`.
@@ -93,7 +93,7 @@ The supplied deployment examples run non-root, enable `no-new-privileges`, and d
 ## Releases
 
 - `edge` follows successful builds of `main`.
-- semantic-version tags such as `0.1.1` are stable release images.
+- semantic-version tags such as `0.2.0` are stable release images.
 - `0.1` tracks the corresponding minor release line.
 - `latest` points to the most recent stable release.
 
