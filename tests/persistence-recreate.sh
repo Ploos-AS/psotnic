@@ -35,6 +35,8 @@ sleep 2
 docker exec "$second" sh -eu -c '
   test "$(cat /data/persistence.marker)" = "persistence-marker"
   test "$(cat /data/recreate.marker)" = "created-by-first-generation"
+  test "$(stat -c %u:%g /data/persistence.marker)" = "1000:1000"
+  test "$(stat -c %u:%g /data/recreate.marker)" = "1000:1000"
 '
 
 echo "persistence/recreate regression: PASS"
