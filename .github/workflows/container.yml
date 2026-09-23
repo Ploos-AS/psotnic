@@ -39,6 +39,8 @@ jobs:
         run: IMAGE=psotnic:test sh tests/runtime.sh
       - name: Persistence recreate qualification
         run: IMAGE=psotnic:test sh tests/persistence-recreate.sh
+      - name: Upgrade rollback qualification
+        run: OLD_IMAGE=ghcr.io/ploos-as/psotnic:0.1.1 NEW_IMAGE=psotnic:test sh tests/upgrade-rollback.sh
 
   publish-edge-or-tag:
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
